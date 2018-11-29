@@ -5,7 +5,16 @@ from subprocess import check_output
 
 folder_mp4 = "/home/user1/smb/Intenso/Eigene_Videos_klein"
 folder_backup = "/home/user1/backup_audio"
-num_files = sum([len(files) for r, d, files in os.walk(folder_mp4)])/4
+
+def count_files(path,extension):
+    count = 0
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith(extension): # eg: '.txt'
+                count += 1
+    return count
+
+num_files = count_files(folder_mp4, '.mp4')
 counter_ = 0
 for root, dirs, files in os.walk(folder_mp4):
     for file in files:
